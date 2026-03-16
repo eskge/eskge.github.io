@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shailesh Kumar Gupta · Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root {
+  --black: #111111; --white: #ffffff; --off: #f7f7f5; --gray: #666;
+  --border: #e2e2dc;
+  --lav: #e8d5fb; --mint: #c9f0e4; --peach: #fde4d4; --yel: #fef3c0; --pink: #fce4ec; --sky: #dbeafe;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Lato', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--off); }
+::-webkit-scrollbar-thumb { background: var(--black); border-radius: 2px; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); transition: box-shadow .3s; }
+nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.07); }
+.nav-logo { font-weight: 900; font-size: 18px; color: var(--black); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.nav-logo-box { width: 34px; height: 34px; background: var(--black); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.nav-logo-box span { color: white; font-size: 11px; font-weight: 900; letter-spacing: .5px; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { font-size: 14px; font-weight: 700; color: var(--gray); text-decoration: none; transition: color .2s; position: relative; padding-bottom: 2px; }
+.nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--black); transition: width .25s; }
+.nav-links a:hover { color: var(--black); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--black); }
+.nav-cta { display: flex; align-items: center; gap: 16px; }
+.nav-email { font-size: 13px; color: var(--gray); display: flex; align-items: center; gap: 6px; }
+.nav-btn { background: var(--black); color: white; padding: 8px 20px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 700; transition: opacity .2s; }
+.nav-btn:hover { opacity: .8; }
+
+/* HERO */
+#home { min-height: 100vh; padding-top: 64px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+.hero-left { padding: 60px 20px 60px 80px; display: flex; flex-direction: column; justify-content: center; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--lav); border-radius: 4px; padding: 6px 14px; font-size: 12px; font-weight: 700; color: #6d28d9; margin-bottom: 28px; width: fit-content; }
+.hero-tag .dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: blink 1.5s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero-name { font-size: clamp(56px,6.5vw,92px); font-weight: 900; line-height: 1.0; margin-bottom: 10px; letter-spacing: -2.5px; color: var(--black); }
+.hero-role { font-size: clamp(22px,2.5vw,32px); font-weight: 700; color: #555; margin-bottom: 24px; letter-spacing: -.5px; }
+.hero-bio { font-size: 15px; line-height: 1.8; color: var(--gray); max-width: 520px; margin-bottom: 36px; font-weight: 400; }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+.btn-black { background: var(--black); color: white; padding: 13px 28px; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; transition: opacity .2s; display: inline-flex; align-items: center; gap: 8px; }
+.btn-black:hover { opacity: .82; }
+.btn-outline { border: 1.5px solid var(--border); color: var(--black); padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; transition: border-color .2s; display: inline-flex; align-items: center; gap: 8px; }
+.btn-outline:hover { border-color: var(--black); }
+.hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+.hero-meta-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--gray); transition: color .2s; }
+.hero-meta-item:hover { color: var(--black); }
+.hero-meta-item i { color: var(--black); font-size: 13px; }
+
+/* Hero right — small photo, no bg */
+.hero-right { display: flex; align-items: center; justify-content: center; padding: 60px 80px 60px 20px; }
+.hero-photo-wrap { position: relative; width: 338px; flex-shrink: 0; }
+.hero-photo { width: 100%; height: 418px; object-fit: cover; object-position: center top; display: block; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,.15); }
+
+
+
+/* ABOUT */
+#about { padding: 100px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-top: 1px solid var(--border); }
+.sec-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gray); display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.sec-label::before { content: ''; width: 24px; height: 2px; background: var(--black); flex-shrink: 0; }
+.sec-title { font-size: clamp(30px,3.5vw,50px); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; color: var(--black); margin-bottom: 8px; }
+.sec-title-gray { color: #bbb; }
+.about-body { font-size: 15px; line-height: 1.85; color: #444; margin-bottom: 28px; font-weight: 700; margin-top: 20px; }
+.about-right { display: flex; flex-direction: column; gap: 14px; }
+.about-fact { background: var(--off); border-radius: 14px; padding: 20px 24px; display: flex; align-items: flex-start; gap: 14px; transition: transform .2s, box-shadow .2s; }
+.about-fact:hover { transform: translateX(5px); box-shadow: 0 4px 18px rgba(0,0,0,.07); }
+.about-fact-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.about-fact h4 { font-size: 14px; font-weight: 900; margin-bottom: 3px; }
+.about-fact p { font-size: 13px; color: #444; line-height: 1.55; font-weight: 700; }
+
+/* SKILLS (after about) */
+#skills { padding: 100px 80px; background: var(--off); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.skills-top { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: center; margin-bottom: 48px; }
+.skills-mini-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.sms { border-radius: 14px; padding: 22px; text-align: center; }
+.sms .sn { font-size: 30px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+.sms .sl { font-size: 11px; font-weight: 700; }
+.skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+.skill-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 26px; transition: transform .2s, box-shadow .2s; }
+.skill-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.08); }
+.skill-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 18px; }
+.skill-card h3 { font-size: 12px; font-weight: 900; margin-bottom: 14px; letter-spacing: .5px; text-transform: uppercase; }
+.skill-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-pill { background: var(--off); border: 1px solid var(--border); color: #444; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; transition: all .2s; }
+.skill-pill:hover { background: var(--black); color: white; border-color: var(--black); }
+
+/* EXPERIENCE */
+#experience { padding: 100px 80px; background: var(--black); color: white; }
+.exp-dark-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.35); display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.exp-dark-label::before { content: ''; width: 24px; height: 2px; background: rgba(255,255,255,.3); }
+.sec-title-white { font-size: clamp(30px,3.5vw,50px); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; color: white; }
+.exp-header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 16px; }
+.exp-sub { font-size: 14px; color: rgba(255,255,255,.5); max-width: 300px; line-height: 1.6; font-weight: 400; }
+.exp-list { display: flex; flex-direction: column; }
+.exp-item { border-top: 1px solid rgba(255,255,255,.1); position: relative; overflow: hidden; transition: background .3s; }
+.exp-item:last-child { border-bottom: 1px solid rgba(255,255,255,.1); }
+.exp-item:hover { background: rgba(255,255,255,.03); }
+.exp-item-header { display: flex; align-items: center; gap: 20px; padding: 28px 0; cursor: default; }
+.exp-num { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.3); width: 28px; flex-shrink: 0; }
+.exp-logo-thumb { width: 44px; height: 44px; border-radius: 10px; object-fit: contain; background: white; padding: 4px; flex-shrink: 0; opacity: 0; transform: scale(.85); transition: opacity .35s, transform .35s; }
+.exp-item:hover .exp-logo-thumb { opacity: 1; transform: scale(1); }
+.exp-main-info { flex: 1; }
+.exp-role-title { font-size: 20px; font-weight: 900; color: white; letter-spacing: -.3px; margin-bottom: 5px; }
+.exp-company-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.exp-company-name { font-size: 14px; color: rgba(255,255,255,.6); font-weight: 700; }
+.exp-period-loc { font-size: 12px; color: rgba(255,255,255,.33); font-weight: 400; }
+.exp-tags-mini { display: flex; flex-wrap: wrap; gap: 6px; }
+.etag { padding: 4px 11px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+.etag.lav { background: var(--lav); color: #5b21b6; }
+.etag.mint { background: var(--mint); color: #065f46; }
+.etag.peach { background: var(--peach); color: #9a3412; }
+.etag.yel { background: var(--yel); color: #92400e; }
+.etag.sky { background: var(--sky); color: #1e40af; }
+.exp-company-popup { display: none; position: absolute; right: 0; top: 50%; transform: translateY(-50%); background: white; border-radius: 16px; padding: 22px; box-shadow: 0 20px 56px rgba(0,0,0,.3); width: 250px; z-index: 20; border: 1px solid rgba(0,0,0,.06); pointer-events: none; }
+.exp-item:hover .exp-company-popup { display: block; }
+.exp-popup-logo { width: 80px; height: 80px; object-fit: contain; margin: 0 auto 12px; display: block; }
+.exp-popup-name { font-size: 15px; font-weight: 900; color: var(--black); text-align: center; margin-bottom: 8px; }
+.exp-popup-desc { font-size: 12px; color: var(--gray); text-align: center; line-height: 1.65; font-weight: 400; }
+.exp-body-content { max-height: 0; overflow: hidden; transition: max-height .45s ease, padding .35s; padding: 0 0 0 48px; }
+.exp-item:hover .exp-body-content { max-height: 280px; padding: 4px 270px 28px 48px; }
+.exp-body-content ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.exp-body-content li { display: flex; gap: 10px; font-size: 13px; color: rgba(255,255,255,.95); line-height: 1.65; font-weight: 700; }
+.exp-body-content li::before { content: '→'; color: rgba(255,255,255,.5); flex-shrink: 0; margin-top: 1px; }
+
+/* PROJECTS */
+#projects { padding: 100px 80px; }
+.proj-header { margin-bottom: 48px; }
+.proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;}
+.proj-card { border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: transform .25s, box-shadow .25s; cursor: pointer; }
+.proj-card:hover { transform: translateY(-5px); box-shadow: 0 20px 56px rgba(0,0,0,.1); }
+.proj-card-top { padding: 30px 30px 22px; }
+.proj-accent-bar { height: 4px; border-radius: 2px; margin-bottom: 22px; }
+.proj-badge { display: inline-flex; padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-bottom: 14px; }
+.proj-title { font-size: 21px; font-weight: 900; margin-bottom: 10px; line-height: 1.2; letter-spacing: -.3px; color: var(--black); }
+.proj-desc { font-size: 13px; color: #444; line-height: 1.75; margin-bottom: 18px; font-weight: 700; }
+.proj-tech { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+.tech-tag { border: 1px solid var(--border); color: #444; padding: 4px 11px; border-radius: 6px; font-size: 11px; font-weight: 700; transition: all .2s; }
+.tech-tag:hover { border-color: var(--black); color: var(--black); }
+.proj-footer { padding: 14px 30px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--black); }
+.proj-link { font-size: 13px; font-weight: 700; color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: gap .2s; }
+.proj-link:hover { gap: 10px; }
+.proj-footer-label { font-size: 12px; color: rgba(255,255,255,.5); font-weight: 700; }
+.proj-expand { display: none; padding: 0 30px 24px; }
+.proj-card.open .proj-expand { display: block; }
+.proj-expand ul { list-style: none; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--border); padding-top: 18px; }
+.proj-expand li { display: flex; gap: 10px; font-size: 13px; color: #444; line-height: 1.65; font-weight: 700; }
+.proj-expand li::before { content: '→'; flex-shrink: 0; color: #888; }
+
+/* CERTIFICATIONS TICKER */
+#certifications { padding: 60px 80px; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.cert-header { text-align: center; margin-bottom: 24px; }
+.cert-header-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gray); display: inline-flex; align-items: center; gap: 8px; }
+.cert-header-label::before, .cert-header-label::after { content: ''; width: 24px; height: 2px; background: var(--border); }
+
+.cert-tile { display: inline-flex; align-items: center; gap: 9px; background: var(--off); border: 1px solid var(--border); border-radius: 40px; padding: 10px 20px; white-space: nowrap; font-size: 13px; font-weight: 700; color: var(--black); transition: all .2s; flex-shrink: 0; }
+.cert-tile:hover { background: var(--black); color: white; border-color: var(--black); }
+.cert-tile .li-icon { color: #0a66c2; font-size: 14px; transition: color .2s; }
+.cert-tile:hover .li-icon { color: #7ab3f0; }
+
+/* EDUCATION */
+#education { padding: 100px 80px; }
+.edu-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
+.edu-list { display: flex; flex-direction: column; gap: 22px; }
+.edu-card { border: 1px solid var(--border); border-radius: 20px; padding: 32px; position: relative; overflow: hidden; transition: transform .25s, box-shadow .25s; }
+.edu-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,.09); }
+.edu-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.edu-card:first-child::before { background: linear-gradient(90deg,var(--lav),var(--sky)); }
+.edu-card:last-child::before { background: linear-gradient(90deg,var(--mint),var(--yel)); }
+.edu-top { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+.edu-logo { width: 56px; height: 56px; border-radius: 12px; object-fit: contain; border: 1px solid var(--border); padding: 4px; background: white; flex-shrink: 0; transition: transform .2s; }
+.edu-card:hover .edu-logo { transform: scale(1.06); }
+.edu-degree { font-size: 17px; font-weight: 900; line-height: 1.3; color: var(--black); margin-bottom: 4px; }
+.edu-school { font-size: 13px; color: #6d28d9; font-weight: 700; }
+.edu-meta-row { display: flex; gap: 14px; font-size: 12px; color: var(--gray); margin-bottom: 16px; flex-wrap: wrap; }
+.edu-meta-row span { display: flex; align-items: center; gap: 5px; }
+.edu-gpa { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 14px; display: block; width: fit-content; }
+.edu-coursework { font-size: 12px; color: #444; line-height: 1.7; font-weight: 700; margin-top: 12px; }
+.edu-coursework strong { font-weight: 900; font-size: 11px; letter-spacing: .5px; text-transform: uppercase; color: var(--black); display: block; margin-bottom: 4px; }
+
+/* CONTACT */
+#contact { padding: 100px 80px; background: var(--black); color: white; }
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.contact-title { font-size: clamp(38px,5vw,68px); font-weight: 900; line-height: 1.0; letter-spacing: -2.5px; margin-bottom: 24px; color: white; }
+.contact-title-gray { color: rgba(255,255,255,.2); }
+.contact-body { font-size: 15px; color: rgba(255,255,255,.6); line-height: 1.75; margin-bottom: 36px; font-weight: 400; }
+.contact-social { display: flex; gap: 10px; }
+.contact-social a { width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.55); text-decoration: none; font-size: 16px; transition: all .2s; }
+.contact-social a:hover { border-color: white; color: white; transform: translateY(-2px); }
+.contact-cards { display: flex; flex-direction: column; gap: 12px; }
+.contact-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; transition: all .2s; }
+.contact-card:hover { border-color: rgba(255,255,255,.25); background: rgba(255,255,255,.1); transform: translateX(5px); }
+.contact-card-left { display: flex; align-items: center; gap: 14px; }
+.contact-card-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.contact-card-label { font-size: 10px; color: rgba(255,255,255,.4); margin-bottom: 3px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.contact-card-val { font-size: 14px; color: white; font-weight: 700; }
+.copy-btn { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.45); cursor: pointer; font-size: 12px; background: transparent; transition: all .2s; }
+.copy-btn:hover { border-color: rgba(255,255,255,.4); color: white; }
+.copy-btn.copied { color: #22c55e; border-color: #22c55e; }
+
+/* FOOTER */
+footer { background: var(--black); border-top: 1px solid rgba(255,255,255,.08); padding: 22px 80px; display: flex; align-items: center; justify-content: space-between; }
+.footer-left { font-weight: 900; font-size: 15px; color: white; }
+.footer-right { font-size: 13px; color: rgba(255,255,255,.3); }
+
+/* RESPONSIVE */
+@media(max-width:1024px) {
+  #home { grid-template-columns: 1fr; }
+  .hero-left { padding: 80px 40px 20px; }
+  .hero-right { padding: 20px 40px 60px; }
+  #about { grid-template-columns: 1fr; padding: 80px 40px; }
+  #experience, #projects, #skills, #education, #contact { padding: 80px 40px; }
+  footer { padding: 22px 40px; }
+  .contact-layout, .edu-layout, .skills-top { grid-template-columns: 1fr; gap: 40px; }
+}
+@media(max-width:768px) {
+  nav { padding: 0 20px; }
+  .nav-links, .nav-email { display: none; }
+  .hero-left { padding: 80px 20px 20px; }
+  .hero-right { padding: 20px 20px 60px; }
+  #about, #experience, #projects, #skills, #education, #contact { padding: 60px 20px; }
+  .proj-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+  .exp-item:hover .exp-body-content { padding: 4px 20px 24px 48px; }
+  .exp-company-popup { right: 0; width: 200px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#home">
+    <div class="nav-logo-box"><span>SKG</span></div>
+    Shailesh Kumar Gupta
+  </a>
+  <div class="nav-links">
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-cta">
+    <span class="nav-email"><i class="fa-solid fa-envelope" style="font-size:10px;"></i> bittuskg@gmail.com</span>
+    <a href="#contact" class="nav-btn">Hire Me</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-left">
+    <div class="hero-tag"><span class="dot"></span> Open to Full-Time Opportunities</div>
+    <h1 class="hero-name">Shailesh Kumar Gupta</h1>
+    <p class="hero-role">Data Analyst</p>
+    <p class="hero-bio">Data Science professional with hands-on experience in analytics engineering, data governance, machine learning, and applied AI. I build scalable data pipelines, MDM quality frameworks, KPI dashboards, and intelligent automation systems — turning complex, high-volume datasets into reliable insights and faster decisions. Known for adaptability and a problem-first mindset. I've navigated diverse challenge types across industries, tech stacks, and team contexts, picking up whatever it takes to deliver. Passionate about the intersection of data engineering and AI: from SQL-based data fulfillment workflows to LLM-powered agents and RAG pipelines. Actively seeking roles in Data Science, Data Analytics, and AI/ML Engineering.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-black"><i class="fa-solid fa-briefcase"></i> View Projects</a>
+      <a href="#experience" class="btn-black"><i class="fa-solid fa-chart-line"></i> Experience</a>
+      <a href="#contact" class="btn-black">Contact Me</a>
+    </div>
+
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-wrap">
+      <img class="hero-photo" src="PP.jpg" alt="Shailesh Kumar Gupta"/>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div>
+    <div class="sec-label">About Me</div>
+    <h2 class="sec-title">Who I Am.<br><span class="sec-title-gray">Learn About Me.</span></h2>
+    <p class="about-body">I'm a Data Science graduate from Manipal Institute of Technology with a Minor in Business Analytics, currently working full-time as an Associate Data Science Analyst at Warner Bros. Discovery within the Content Data Service & Governance team. My work spans MDM data quality tracking, KPI development, automated DOMO dashboards for internal teams and leadership, Snowflake-based data workflows, and Python automation tools that improve operational efficiency at scale.
+    
+    Prior to WBD, I gained hands-on experience through internships at Intense Technologies and Goalkeep — working across telecom customer segmentation, ML-based intervention prediction, and data-driven decision tools for non-technical stakeholders.
+    
+    Outside of work, I actively build at the intersection of data engineering and applied AI with projects spanning LLM-powered agents, RAG pipelines, NLP systems, and health analytics platforms. I'm most drawn to problems where intelligent systems meet real operational complexity.
+    
+    Open to full-time roles in Data Science, Data Analytics, ML Engineering, and AI/LLM-driven product development.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="https://www.linkedin.com/in/eskge" target="_blank" class="btn-black" style="font-size:13px;padding:11px 20px;"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+      <a href="https://github.com/eskge" target="_blank" class="btn-black" style="font-size:13px;padding:11px 20px;"><i class="fa-brands fa-github"></i> GitHub</a>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="about-fact">
+      <div class="about-fact-icon" style="background:var(--lav);">🎓</div>
+      <div><h4>Education</h4><p>B.Tech in Data Science · Minor in Business Analytics · Manipal Institute of Technology · 2021 - 2025</p></div>
+    </div>
+    <div class="about-fact">
+      <div class="about-fact-icon" style="background:var(--mint);">💼</div>
+      <div><h4>Currently Working</h4><p>Associate Data Analyst · Warner Bros. Discovery · Data Analytics & Governance Team(MDM) · Hyderabad, TG</p></div>
+    </div>
+    <div class="about-fact">
+      <div class="about-fact-icon" style="background:var(--peach);">🛠️</div>
+      <div><h4>Core Skills</h4><p>Python · Adv SQL · BI Dashboards · Machine Learning · NLP · LLMs · Generative AI</p></div>
+    </div>
+    <div class="about-fact">
+      <div class="about-fact-icon" style="background:var(--yel);">🎯</div>
+      <div><h4>Looking For</h4><p>Full-time roles in Data Analytics · Data Scientist · Data Engineer</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-top">
+    <div>
+      <div class="sec-label">Skills</div>
+      <h2 class="sec-title" style="font-size:clamp(28px,3.2vw,44px);">Technical<br>Skills.</h2>
+      <p style="font-size:14px;color:#444;line-height:1.75;margin-top:14px;font-weight:700;">Full-stack data analytics capabilities across programming, visualization, cloud, and AI.</p>
+    </div>
+    <div class="skills-mini-stats">
+      <div class="sms" style="background:var(--lav);"><div class="sn" style="color:#5b21b6;">2</div><div class="sl" style="color:#6d28d9;">Internships</div></div>
+      <div class="sms" style="background:var(--mint);"><div class="sn" style="color:#065f46;">1</div><div class="sl" style="color:#059669;">Full-Time Role</div></div>
+      <div class="sms" style="background:var(--peach);"><div class="sn" style="color:#9a3412;">5+</div><div class="sl" style="color:#b45309;">Certifications</div></div>
+    </div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-icon" style="background:var(--lav);">💻</div><h3>Programming</h3><div class="skill-pills"><span class="skill-pill">Python</span><span class="skill-pill">SQL</span><span class="skill-pill">PySpark</span><span class="skill-pill">Pandas</span><span class="skill-pill">NumPy</span><span class="skill-pill">Scikit-learn</span><span class="skill-pill">TensorFlow</span><span class="skill-pill">PyTorch</span><span class="skill-pill">Keras</span></div></div>
+    
+    <div class="skill-card"><div class="skill-icon" style="background:var(--mint);">📊</div><h3>Visualization &amp; BI</h3><div class="skill-pills"><span class="skill-pill">Tableau</span><span class="skill-pill">Power BI</span><span class="skill-pill">DOMO</span><span class="skill-pill">Looker Studio</span><span class="skill-pill">Apache Superset</span><span class="skill-pill">Matplotlib</span><span class="skill-pill">Seaborn</span><span class="skill-pill">Plotly</span></div></div>
+    
+    <div class="skill-card"><div class="skill-icon" style="background:var(--peach);">🔍</div><h3>Data Analytics &amp; ML</h3><div class="skill-pills"><span class="skill-pill">Feature Engineering</span><span class="skill-pill">EDA</span><span class="skill-pill">NLP</span><span class="skill-pill">Clustering</span><span class="skill-pill">Regression</span><span class="skill-pill">Predictive Modeling</span><span class="skill-pill">Data Validation</span></div></div>
+    
+    <div class="skill-card"><div class="skill-icon" style="background:var(--yel);">🗄️</div><h3>Databases &amp; Cloud</h3><div class="skill-pills"><span class="skill-pill">Snowflake</span><span class="skill-pill">Databricks</span><span class="skill-pill">MySQL</span><span class="skill-pill">PostgreSQL</span><span class="skill-pill">PySpark</span><span class="skill-pill">FAISS</span></div></div>
+    
+    <div class="skill-card"><div class="skill-icon" style="background:var(--sky);">🤖</div><h3>GenAI &amp; LLMs</h3><div class="skill-pills"><span class="skill-pill">OpenAI API</span><span class="skill-pill">Gemini API</span><span class="skill-pill">Hugging Face</span><span class="skill-pill">Sentence Transformers</span><span class="skill-pill">RAG</span><span class="skill-pill">Prompt Engineering</span><span class="skill-pill">Embedding Models</span></div></div>
+    
+    <div class="skill-card"><div class="skill-icon" style="background:var(--pink);">🛠️</div><h3>Tools &amp; Dev</h3><div class="skill-pills"><span class="skill-pill">Streamlit</span><span class="skill-pill">Selenium</span><span class="skill-pill">Git</span><span class="skill-pill">GitHub</span><span class="skill-pill">Jupyter</span><span class="skill-pill">API Integration</span><span class="skill-pill">Semantic Search</span></div></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-header-row">
+    <div>
+      <div class="exp-dark-label">Experience</div>
+      <h2 class="sec-title-white">Where I've Built<br>Real Impact.</h2>
+    </div>
+    
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-item-header">
+        <span class="exp-num">01</span>
+        <img class="exp-logo-thumb" src="wbd.jpg" alt="Warner Bros. Discovery"/>
+        <div class="exp-main-info">
+          <div class="exp-role-title"> Associate Data Analyst</div>
+          <div class="exp-company-row">
+            <span class="exp-company-name">Warner Bros. Discovery</span>
+            <span class="exp-period-loc">June 2025 – Present &nbsp;·&nbsp; Hyderabad, TG</span>
+          </div>
+        </div>
+        <div class="exp-tags-mini">
+          <span class="etag lav">95% Latency Reduction</span>
+          <span class="etag mint">Score 3.1 to 4.4</span>
+          <span class="etag peach">FAST & SVOD Fulfillment</span>
+          <span class="etag sky">MDM Governance</span>
+        </div>
+      </div>
+      <div class="exp-body-content"><ul>
+        <li>Engineered a Python/Selenium TMDB scraper for internal metadata enrichment, reducing data acquisition latency by 95% and deployed it as a Streamlit-hosted tool actively used by analysts to populate and enrich Snowflake tables.</li>
+        <li>Built and maintained MDM data quality KPI frameworks in DOMO connected to Snowflake, defining completeness metrics, automated alert triggers, and governance dashboards for internal teams, stakeholders, and leadership, improving title completeness score from 3.1 to 4.4 out of 5.0.</li>
+        <li>Managed end-to-end Data Fulfillment for global FAST and VOD platforms, translating content delivery requirements into complex multi-table Snowflake SQL queries to aggregate and normalize high-volume metadata including synopses, playback specs, and Series/Season/Episode hierarchies for precise schema delivery and ad-monetization readiness.</li>
+        <li>Designed and enforced data quality checks and lineage validation in Python and SQL across Snowflake schemas, surfacing undetected inconsistencies and flagging them to governance and operations teams for source-level resolution.</li>
+        <li>Developed Python-based automation scripts to streamline repetitive operational processes, reducing manual effort and improving data pipeline efficiency across the Content Data Service team.</li>
+      </ul></div>
+      <div class="exp-company-popup">
+        <img class="exp-popup-logo" src="wbd.jpg" alt="Warner Bros. Discovery"/>
+        <div class="exp-popup-name">Warner Bros. Discovery</div>
+        <div class="exp-popup-desc">Global media and entertainment company behind HBO, CNN, Warner Bros. films, and Discovery channels — one of the world's largest media conglomerates.</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-item-header">
+        <span class="exp-num">02</span>
+        <img class="exp-logo-thumb" src="in10s.jpg" alt="Intense"/>
+        <div class="exp-main-info">
+          <div class="exp-role-title">Data Science Intern</div>
+          <div class="exp-company-row">
+            <span class="exp-company-name">Intense Technologies Limited</span>
+            <span class="exp-period-loc">Feb 2025 – May 2025 &nbsp;·&nbsp; Hyderabad, TG</span>
+          </div>
+        </div>
+        <div class="exp-tags-mini">
+          <span class="etag lav">4M+ Records</span>
+          <span class="etag mint">Silhouette 0.41 to 0.57</span>
+          <span class="etag sky">12% Marketing Lift</span>
+        </div>
+      </div>
+      <div class="exp-body-content"><ul>
+        <li>Analyzed 4M+ telecom records through end-to-end K-Means clustering, engineering RFM and usage-based features to uncover distinct behavioral cohorts, combining statistical analysis with business-oriented segmentation logic.</li>
+        <li>Boosted Silhouette Score from 0.41 to 0.57 through StandardScaler normalization and iterative feature refinement.</li>
+        <li>Defined 4 key segments (High-Value, Growth, Price-Sensitive, At-Risk), driving a 12% lift in marketing response rates.</li>
+      </ul></div>
+      <div class="exp-company-popup">
+        <img class="exp-popup-logo" src="in10s.jpg" alt="Intense"/>
+        <div class="exp-popup-name">Intense Technologies Limited</div>
+        <div class="exp-popup-desc">Hyderabad-based enterprise software company providing customer communication management and digital transformation solutions to global telecoms and BFSI clients.</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-item-header">
+        <span class="exp-num">03</span>
+        <img class="exp-logo-thumb" src="goalkeep.jpg" alt="Goalkeep"/>
+        <div class="exp-main-info">
+          <div class="exp-role-title">Data Science Intern</div>
+          <div class="exp-company-row">
+            <span class="exp-company-name">Goalkeep Advisors Private Limited</span>
+            <span class="exp-period-loc">May 2024 – Dec 2024 &nbsp;·&nbsp; Bengaluru, KA</span>
+          </div>
+        </div>
+                <div class="exp-tags-mini">
+          <span class="etag peach">ROC-AUC 0.87 · Recall 0.89</span>
+          <span class="etag yel">1,500+ Student Records</span>
+          <span class="etag mint">Predictive Analytics</span>
+        </div>
+      </div>
+      <div class="exp-body-content"><ul>
+        <li>Engineered a binary classification pipeline (Logistic Regression, Random Forest) to predict intervention needs for specially-abled students, achievingROC-AUC 0.87 andRecall 0.89 using 5-Fold Stratified CV.</li>
+        <li>Developed a multi-page analytics interface featuring school-wide KPI overviews, class-level risk rankings, and student lookup tools, enabling educators to prioritize high-need cases immediately.</li>
+        <li>Operationalized model outputs into automated, downloadable intervention reports, translating complex risk probabilities into actionable summaries for non-technical NGO stakeholders.</li>
+      </ul></div>
+      <div class="exp-company-popup">
+        <img class="exp-popup-logo" src="goalkeep.jpg" alt="Goalkeep"/>
+        <div class="exp-popup-name">Goalkeep Advisors Private Limited</div>
+        <div class="exp-popup-desc">Bengaluru-based advisory firm working with NGOs and social sector organizations, using data science to improve educational outcomes for specially-abled students.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="proj-header">
+    <div class="sec-label">Projects</div>
+    <h2 class="sec-title">Data Science &amp; <span class="sec-title-gray">Analytics Work.</span></h2>
+  </div>
+  <div class="proj-grid">
+
+    <div class="proj-card" onclick="this.classList.toggle('open')">
+      <div class="proj-card-top">
+        <div class="proj-accent-bar" style="background:linear-gradient(90deg,var(--lav),var(--sky));"></div>
+        <span class="proj-badge" style="background:var(--lav);color:#5b21b6;">90% Verdict Accuracy</span>
+        <h3 class="proj-title">AI Content Research Agent</h3>
+        <p class="proj-desc">An AI agent that determines whether two film/TV records refer to the same work — handling remakes, sequels, aliases, and title variants with 100% verdict accuracy across a 4-step reasoning pipeline.</p>
+        <div class="proj-tech"><span class="tech-tag">Python</span><span class="tech-tag">Groq LPU</span><span class="tech-tag">Llama 3</span><span class="tech-tag">Streamlit</span><span class="tech-tag">Prompt Engineering</span></div>
+      </div>
+      <div class="proj-footer">
+        <a href="javascript:void(0);" class="proj-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+        <span class="proj-footer-label">GenAI · NLP · Agent</span>
+      </div>
+      <div class="proj-expand"><ul>
+        <li>Designed a 4-step pipeline: adaptive web search → evidence extraction → structured JSON verdict → risk audit, with source trust ranking (IMDb/Wikipedia prioritized) and exponential backoff on API rate limits.</li>
+        <li>Implemented tiered model routing based on complexity scoring, reducing API consumption by 60% by directing simple pairs to lightweight models and ambiguous pairs to larger ones.</li>
+        <li>Built a Streamlit UI supporting CSV batch processing, live results, and JSON/CSV export; iterated through 5 versions using real outputs as ground truth to fix confidence miscalibration.</li>
+      </ul></div>
+    </div>
+
+    <div class="proj-card" onclick="this.classList.toggle('open')">
+      <div class="proj-card-top">
+        <div class="proj-accent-bar" style="background:linear-gradient(90deg,var(--mint),var(--yel));"></div>
+        <span class="proj-badge" style="background:var(--mint);color:#065f46;">50+ Biomarkers · LLM-Powered</span>
+        <h3 class="proj-title">HomeHealth AI</h3>
+        <p class="proj-desc">A multi-patient health analytics platform that analyzes longitudinal clinical data with Plotly time-series visualizations, automated biomarker classification, and a Gemini LLM integration for natural language queries over patient history.</p>
+        <div class="proj-tech"><span class="tech-tag">Python</span><span class="tech-tag">Streamlit</span><span class="tech-tag">SQLite</span><span class="tech-tag">Gemini AI</span><span class="tech-tag">Plotly</span></div>
+      </div>
+      <div class="proj-footer">
+        <a href="javascript:void(0);" class="proj-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+        <span class="proj-footer-label">GenAI · Health Analytics</span>
+      </div>
+      <div class="proj-expand"><ul>
+        <li>Automated HIGH/LOW/NORMAL classification across 50+ biomarkers from longitudinal patient records.</li>
+        <li>Integrated Gemini LLM to power natural language queries directly over patient medical history.</li>
+        <li>Built interactive Plotly time-series dashboards enabling multi-patient trend comparison.</li>
+      </ul></div>
+    </div>
+
+    <div class="proj-card" onclick="this.classList.toggle('open')">
+      <div class="proj-card-top">
+        <div class="proj-accent-bar" style="background:linear-gradient(90deg,var(--peach),var(--pink));"></div>
+        <span class="proj-badge" style="background:var(--peach);color:#9a3412;">5,000+ Titles · Live API</span>
+        <h3 class="proj-title">Movie Recommendation System</h3>
+        <p class="proj-desc">An NLP-based recommendation engine using TF-IDF and cosine similarity on 5,000+ film titles, with live TMDB API integration for real-time poster and metadata enrichment.</p>
+        <div class="proj-tech"><span class="tech-tag">Python</span><span class="tech-tag">Scikit-learn</span><span class="tech-tag">NLTK</span><span class="tech-tag">Streamlit</span><span class="tech-tag">TMDB API</span></div>
+      </div>
+      <div class="proj-footer">
+        <a href="javascript:void(0);" class="proj-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+        <span class="proj-footer-label">NLP · Recommendation</span>
+      </div>
+      <div class="proj-expand"><ul>
+        <li>Built content-based filtering using TF-IDF vectorization and cosine similarity on plot, genre, and cast metadata.</li>
+        <li>Integrated TMDB API for live poster fetching, ratings, and metadata enrichment on results.</li>
+        <li>Deployed as an interactive Streamlit app with instant search and ranked recommendation cards.</li>
+      </ul></div>
+    </div>
+
+    <div class="proj-card" onclick="this.classList.toggle('open')">
+      <div class="proj-card-top">
+        <div class="proj-accent-bar" style="background:linear-gradient(90deg,var(--yel),var(--mint));"></div>
+        <span class="proj-badge" style="background:var(--yel);color:#92400e;">ROC-AUC 0.87 · Recall 0.89</span>
+        <h3 class="proj-title">Student Intervention Predictor</h3>
+        <p class="proj-desc">A binary classification pipeline predicting intervention needs for specially-abled students across NGO-run schools, with a dashboard enabling teachers to act on model outputs without technical knowledge.</p>
+        <div class="proj-tech"><span class="tech-tag">Python</span><span class="tech-tag">Scikit-learn</span><span class="tech-tag">Logistic Regression</span><span class="tech-tag">Random Forest</span><span class="tech-tag">Streamlit</span></div>
+      </div>
+      <div class="proj-footer">
+        <a href="javascript:void(0);" class="proj-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+        <span class="proj-footer-label">ML · Social Impact</span>
+      </div>
+      <div class="proj-expand"><ul>
+        <li>Engineered a robust binary classification pipeline (Logistic Regression, Random Forest) achieving an ROC-AUC of 0.87 and Recall of 0.89, ensuring 9 out of 10 students in need of intervention were correctly identified.</li>
+        <li>Developed an interactive analytics dashboard featuring school-wide KPI overviews, class-level risk rankings, and a centralized student lookup system for rapid identification of high-priority cases.</li>
+        <li>Translated model outputs into downloadable intervention reports for educators and NGO stakeholders.</li>
+      </ul></div>
+    </div>
+
+    <div class="proj-card" onclick="this.classList.toggle('open')">
+      <div class="proj-card-top">
+        <div class="proj-accent-bar" style="background:linear-gradient(90deg,var(--sky),var(--lav));"></div>
+        <span class="proj-badge" style="background:var(--sky);color:#1e40af;">Multi-language · Multi-season</span>
+        <h3 class="proj-title">TMDB Episode Metadata Scraper</h3>
+        <p class="proj-desc">A Selenium-based web scraper built for internal metadata enrichment at Warner Bros. Discovery, extracting multi-language episode titles across seasons from TMDB and exporting structured data directly into Excel for Snowflake ingestion.</p>
+        <div class="proj-tech"><span class="tech-tag">Python</span><span class="tech-tag">Selenium</span><span class="tech-tag">Streamlit</span><span class="tech-tag">Pandas</span><span class="tech-tag">XlsxWriter</span></div>
+      </div>
+      <div class="proj-footer">
+        <a href="javascript:void(0);" class="proj-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+        <span class="proj-footer-label">Data Engineering · Automation</span>
+      </div>
+      <div class="proj-expand"><ul>
+        <li>Scraped episode titles across multiple seasons and languages simultaneously using headless Chrome via Selenium WebDriver, with dynamic wait handling for reliable page load detection.</li>
+        <li>Built a Streamlit UI allowing analysts to input any TMDB series ID, season count, and language codes, making the tool fully self-serve with no technical knowledge required.</li>
+        <li>Exported structured output as a multi-sheet Excel file per language, used internally by analysts to populate and enrich Snowflake metadata tables.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS TICKER -->
+<section id="certifications">
+  <div class="cert-header">
+    <span class="cert-header-label">Certifications</span>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
+
+    <a href="https://www.coursera.org/account/accomplishments/specialization/D8U8UA91IZHZ" target="_blank" class="cert-tile">
+      <i class="fa-brands fa-linkedin li-icon"></i> Google Data Analytics
+    </a>
+
+    <a href="https://udemy-certificate.s3.amazonaws.com/pdf/UC-fb368b76-eebf-46f3-8f35-ab7056abcc0d.pdf" target="_blank" class="cert-tile">
+      <i class="fa-brands fa-linkedin li-icon"></i> Advanced Generative AI Applications Development
+    </a>
+
+    <a href="https://www.credly.com/badges/ff5b6b21-aca1-4ce9-9934-9edc7606efb7/public_url" target="_blank" class="cert-tile">
+      <i class="fa-brands fa-linkedin li-icon"></i> Machine Learning for Data Science Projects
+    </a>
+
+    <a href="https://www.coursera.org/account/accomplishments/verify/Y8WWX9HWRW56" target="_blank" class="cert-tile">
+      <i class="fa-brands fa-linkedin li-icon"></i> Analyze Datasets and Train ML Models using AutoML
+    </a>
+
+    <a href="https://www.coursera.org/account/accomplishments/verify/5GLHXNSDESKD" target="_blank" class="cert-tile">
+      <i class="fa-brands fa-linkedin li-icon"></i> Generative AI for Data Analysis
+    </a>
+
+    <a href="https://credentials.databricks.com/10dc1d3f-b57a-4ce4-b655-296a8ca0cff4" target="_blank" class="cert-tile">
+      <i class="fa-brands fa-linkedin li-icon"></i> Academy Accreditation - Generative AI Fundamentals
+    </a>
+
+    <a href="https://www.credly.com/badges/b9f997ae-56ea-43bb-99d6-8a7099dd5f01/public_url" target="_blank" class="cert-tile">
+      <i class="fa-brands fa-linkedin li-icon"></i> McKinsey Forward Program
+    </a>
+
+    <a href="https://www.coursera.org/account/accomplishments/verify/A3O73VBEQB0Y" target="_blank" class="cert-tile">
+      <i class="fa-brands fa-linkedin li-icon"></i> Fundamentals of Visualization with Tableau
+    </a>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="edu-layout">
+    <div>
+      <div class="sec-label">Education</div>
+      <h2 class="sec-title" style="font-size:clamp(28px,3.2vw,44px);">Academic<br><span class="sec-title-gray">Foundation.</span></h2>
+      <p style="font-size:14px;color:#444;line-height:1.75;margin-top:14px;font-weight:700;">Four years of dedicated Data Science study spanning machine learning, analytics, AI, and data engineering applied across diverse projects that built both technical depth and adaptability.</p>
+    </div>
+    <div class="edu-list">
+      <div class="edu-card">
+        <div class="edu-top">
+          <img class="edu-logo" src="mit.jpg" alt="UIUC"/>
+          <div>
+            <div class="edu-degree">Bachelor of Technology in Data Science</div>
+            <div class="edu-school">Manipal Institute of Technology</div>
+          </div>
+        </div>
+        <div class="edu-meta-row">
+          <span class="edu-gpa" style="background:var(--lav);color:#5b21b6;margin:0">📊 Minor: Business Analytics</span>
+          <span><i class="fa-regular fa-calendar"></i> Oct 2021 – Dec 2025</span>
+          <span><i class="fa-solid fa-location-dot"></i> Manipal, KA</span>
+        </div>
+        <div class="edu-coursework">
+          <strong>Coursework</strong>
+          Artificial Intelligence · Machine Learning · Data Mining · NLP · Statistics · Data Warehousing · Business Intelligence · Data Visualization · Feature Engineering · Big Data Analytics · Deep Learning
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-layout">
+    <div>
+      <div class="exp-dark-label">Contact</div>
+      <h2 class="contact-title">Let's<br><span class="contact-title-gray">Connect.</span></h2>
+      <p class="contact-body">Actively looking for full-time opportunities in Data Analytics, Business Intelligence, and Data Science. Let's talk about how I can bring value to your team.</p>
+      <div class="contact-social">
+        <a href="https://www.linkedin.com/in/eskge" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/eskge" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:bittuskg@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        <a href="tel:+916309602403"><i class="fa-solid fa-phone"></i></a>
+      </div>
+    </div>
+    <div class="contact-cards">
+      <div class="contact-card">
+        <div class="contact-card-left">
+          <div class="contact-card-icon" style="background:var(--lav);color:#5b21b6;"><i class="fa-solid fa-envelope"></i></div>
+          <div><div class="contact-card-label">Email</div><div class="contact-card-val">bittuskg@gmail.com</div></div>
+        </div>
+        <button class="copy-btn" onclick="copyText('bittuskg@gmail.com',this)"><i class="fa-regular fa-copy"></i></button>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-left">
+          <div class="contact-card-icon" style="background:var(--mint);color:#065f46;"><i class="fa-solid fa-phone"></i></div>
+          <div><div class="contact-card-label">Phone</div><div class="contact-card-val">+91 630-960-2403</div></div>
+        </div>
+        <button class="copy-btn" onclick="copyText('+916309602403',this)"><i class="fa-regular fa-copy"></i></button>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-left">
+          <div class="contact-card-icon" style="background:var(--peach);color:#9a3412;"><i class="fa-solid fa-location-dot"></i></div>
+          <div><div class="contact-card-label">Location</div><div class="contact-card-val">Hyderabad, Telangana, IND</div></div>
+        </div>
+        <button class="copy-btn" onclick="copyText('Hyderabad, Telangana, IND',this)"><i class="fa-regular fa-copy"></i></button>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-left">
+          <div class="contact-card-icon" style="background:var(--yel);color:#92400e;"><i class="fa-brands fa-linkedin"></i></div>
+          <div><div class="contact-card-label">LinkedIn</div><div class="contact-card-val">linkedin.com/in/eskge</div></div>
+        </div>
+        <a href="https://www.linkedin.com/in/eskge" target="_blank" style="color:rgba(255,255,255,.4);font-size:14px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,.4)'"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">Shailesh Kumar Gupta &nbsp;·&nbsp; Data Analyst</div>
+  <div class="footer-right">© 2026 Shailesh Kumar Gupta. All rights reserved.</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  
+
+    function copyText(text, btn) {
+    // Try modern clipboard API first, fall back to execCommand
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => { showCopied(btn); });
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showCopied(btn);
+    }
+  }
+  function showCopied(btn) {
+    btn.classList.add('copied');
+    btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+    setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="fa-regular fa-copy"></i>'; }, 1800);
+  }
+  const secs = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  const nav = document.getElementById('navbar');
+ 
